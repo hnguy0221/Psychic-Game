@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="UTF-8">
+        <title>Pchysic Game</title>
+    </head>
+    <body>
+        <h1>The Psychic Game</h1>
+        <!-- When we start playing the game, our HTML will be placed into this div. -->
+        <div id="game">
+            <p>Guess what letter I'm thinking of</p>
+        </div>
+
+        <script type="text/javascript">
+
+            // Our array of possible computer choices.
+            var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+            // Variables for tracking our wins, losses and guesses count. The wins and losses variables begin at 0 and the
+            //guessesCnt begins at 9.
+            var wins = 0;
+            var losses = 0;
+            var userGuessesCnt = 0;
+            var userGuess;
+            var computerGuess;
+            var html;
+            var userGuessesArr = []; /*contains a list of guesses so that no duplicate guess is allowed*/
+            var userGuessesStr = "";
+            var maxGuesses = 9;
+
+            html = "<p>Guess what letter I'm thinking of</p>" +
+                   "<p>wins: " + wins + "</p>" +
+                   "<p>losses: " + losses + "</p>" +
+                   "<p>Guesses left: " + maxGuesses + "</p>" +
+                   "<p>Your guesses so far:</p";
+
+            // Injecting the HTML we just created into our div and updating the game information on our page.
+            document.querySelector("#game").innerHTML = html;
+
+            function seqSearch(list, searchItem)
+            {
+                var found = "false";
+                var loc = -1;
+                var i;
+
+                for (i = 0; i < list.length; i++)
+                {
+                    if (searchItem === list[i])
+                    {
+                        found = "true";
+                        break;
+                    }
+                }
+                if (found === "true")
+                {
+                    loc = i;
+                }
+                else
+                {
+                    loc = -1;
+                }
+
+                return loc;
+            }
+
+            // When the user presses a key, it will run the following function...
+            document.onkeyup = function(event) 
+            {
+                // Determine which key was pressed
+                //userGuess = String.fromCharCode(event.key).toLowerCase();
+                userGuess = event.key;
+                userGuess = userGuess.toLowerCase();
+                console.log("User guess: " + userGuess);
+
+                // Sets the computerGuess variable equal to a random choice from the computerChoice array.
+                computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+                console.log("Computer guess: " + computerGuess);
+
+                //this is to make sure no duplicate guess is allowed.
+                var loc = seqSearch(userGuessesArr, userGuess);
+                console.log("Location: " + loc);
+
+                if ((userGuess.match(/[a-z]/i)) && (userGuess !== "shift") && (userGuess !== "control") && (userGuess !== "alt") &&
+                    (userGuess !== "meta") && (userGuess !== "enter") && (userGuess !== "backspace") && (userGuess !== "escape") &&
+                    (loc === -1))
+                {
+                    userGuessesArr[userGuessesCnt] = userGuess;
+                    console.log("User Guesses Arr[" + userGuessesCnt + "]: " + userGuessesArr[userGuessesCnt]);
+
+                    if (userGuessesCnt === 0)
+                    {
+                        userGuessesStr = userGuess;
+                    }
+                    else
+                    {
+                        userGuessesStr = userGuessesStr + ", " + userGuess;
+                    }
+
+                    userGuessesCnt++;
+                                  
+                    if (userGuess === computerGuess)
+                    {
+                        maxGuesses = 9;
+                    
+                        wins++;
+                        userGuessesStr = "";
+                        userGuessesCnt = 0;
+                        userGuessesArr = [];
+                        // Here we create the HTML that will be injected into our div and displayed on the page.
+                        html = "<p>Guess what letter I'm thinking of</p>" +
+                               "<p>wins: " + wins + "</p>" +
+                               "<p>losses: " + losses + "</p>" +
+                               "<p>Guesses left: " + maxGuesses + "</p>" +
+                               "<p>Your guesses so far: " + "</p";
+
+                        // Injecting the HTML we just created into our div and updating the game information on our page.
+                        document.querySelector("#game").innerHTML = html;
+                    }
+                    else
+                    {
+                        maxGuesses--;
+                        if (maxGuesses === 0)
+                        {
+                            losses++;
+                            maxGuesses = 9;
+                            userGuessesStr = "";
+                            userGuessesCnt = 0;
+                            userGuessesArr = [];
+                        }
+
+                        // Here we create the HTML that will be injected into our div and displayed on the page.
+                        html = "<p>Guess what letter I'm thinking of</p>" +
+                               "<p>wins: " + wins + "</p>" +
+                               "<p>losses: " + losses + "</p>" +
+                               "<p>Guesses left: " + maxGuesses + "</p>" +
+                               "<p>Your guesses so far: " + userGuessesStr +"</p";
+
+                        // Injecting the HTML we just created into our div and updating the game information on our page.
+                        document.querySelector("#game").innerHTML = html;
+                    }                 
+                }
+            };
+        </script>
+    </body>
+</html>
