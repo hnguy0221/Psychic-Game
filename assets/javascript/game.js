@@ -104,7 +104,7 @@ document.onkeyup = function(event)
         (userGuess !== "control") && (userGuess !== "alt") &&
         (userGuess !== "meta") && (userGuess !== "enter") && 
         (userGuess !== "backspace") && (userGuess !== "escape") &&
-        (userGuess !== "capslock") && (loc === -1))
+        (userGuess !== "capslock") && (userGuess != "tab") && (loc === -1))
     {
         userGuessesArr[userGuessesCnt] = userGuess;
         console.log("User Guesses Arr[" + userGuessesCnt + "]: " + userGuessesArr[userGuessesCnt]);
