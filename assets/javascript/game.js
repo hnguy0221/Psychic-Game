@@ -57,7 +57,7 @@ html = "<p>Guess what letter I'm thinking of.</p>" +
 // information on our page.
 document.querySelector("#game").innerHTML = html;
 
-/*function seqSearch(list, searchItem)
+function seqSearch(list, searchItem)
 {
     var found = "false";
     var loc = -1;
@@ -161,4 +161,4 @@ document.onkeyup = function(event)
             document.querySelector("#game").innerHTML = html;
         }                 
     }
-};*/
+};
