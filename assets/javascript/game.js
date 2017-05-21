@@ -57,7 +57,7 @@ html = "<p>Guess what letter I'm thinking of.</p>" +
 // information on our page.
 document.querySelector("#game").innerHTML = html;
 
-function seqSearch(list, searchItem)
+/*function seqSearch(list, searchItem)
 {
     var found = "false";
     var loc = -1;
@@ -87,7 +87,7 @@ function seqSearch(list, searchItem)
 document.onkeyup = function(event) 
 {
     // Determine which key was pressed
-    //userGuess = String.fromCharCode(event.key).toLowerCase();
+    //userGuess = String.fromCharCode(event.keyCode).toLowerCase();
     userGuess = event.key;
     userGuess = userGuess.toLowerCase();
     console.log("User guess: " + userGuess);
@@ -161,4 +161,4 @@ document.onkeyup = function(event)
             document.querySelector("#game").innerHTML = html;
         }                 
     }
-};
+};*/
